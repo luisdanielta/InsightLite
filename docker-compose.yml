@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  pocketbase:
+    image: metapocket:pb
+    container_name: metapocket_server
+    ports:
+      - "3081:8090"
+    volumes:
+      - metapocket_data:/pb_data
+    environment:
+      - DATA_DIR=/pb_data
+
+  metabase:
+    image: metabase/metabase:v0.52.4
+    container_name: metapocket_ui
+    ports:
+      - 3080:3000
+    volumes:
+      - metapocket_data:/pb_data
+
+    healthcheck:
+      test: curl --fail -I http://localhost:3000/api/health || exit 1
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  metapocket_data:
+    driver: local
