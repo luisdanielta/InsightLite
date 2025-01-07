@@ -15,7 +15,7 @@ services:
     restart: unless-stopped
     #network
     networks:
-      pihole_net:
+      metabase_net:
         ipv4_address: 192.168.2.150
     dns:
       - 192.168.2.2
@@ -32,7 +32,7 @@ services:
     restart: unless-stopped
     #network
     networks:
-      pihole_net:
+      metabase_net:
         ipv4_address: 192.168.2.151
     dns:
       - 192.168.2.2
@@ -49,5 +49,5 @@ volumes:
     driver: local
 
 networks:
-  pihole_net:
+  metabase_net:
     external: true
