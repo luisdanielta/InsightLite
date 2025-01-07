@@ -2,7 +2,9 @@ version: '3'
 
 services:
   pocketbase:
-    image: metapocket:pb
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: metapocket_server
     ports:
       - 3081:8090
