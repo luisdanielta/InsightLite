@@ -12,10 +12,7 @@
 1. Create a custom network for better organization and security:
 
    ```bash
-   docker network create \
-     --driver=bridge \
-     --subnet=192.168.2.0/24 \
-     yourcustom_net
+   docker network create --driver=bridge --subnet=192.168.2.0/24 metapocket_net
    ```
 
 ## Getting Started
