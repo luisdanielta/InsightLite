@@ -5,11 +5,18 @@ services:
     image: metapocket:pb
     container_name: metapocket_server
     ports:
-      - "3081:8090"
-    volumes:
-      - metapocket_data:/pb_data
+      - 3081:8090
     environment:
       - DATA_DIR=/pb_data
+    volumes:
+      - metapocket_data:/pb_data
+    restart: unless-stopped
+    #network
+    networks:
+      pihole_net:
+        ipv4_address: 192.168.2.150
+    dns:
+      - 192.168.2.2
 
   metabase:
     image: metabase/metabase:v0.52.4
@@ -18,7 +25,17 @@ services:
       - 3080:3000
     volumes:
       - metapocket_data:/pb_data
+    environment:
+      - JAVA_OPTS=-Xms512m -Xmx1512m
+    restart: unless-stopped
+    #network
+    networks:
+      pihole_net:
+        ipv4_address: 192.168.2.151
+    dns:
+      - 192.168.2.2
 
+    # helth
     healthcheck:
       test: curl --fail -I http://localhost:3000/api/health || exit 1
       interval: 15s
@@ -28,3 +45,7 @@ services:
 volumes:
   metapocket_data:
     driver: local
+
+networks:
+  pihole_net:
+    external: true
