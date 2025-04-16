@@ -9,6 +9,17 @@
 - **Custom Network Configuration**: Uses a dedicated Docker bridge network for secure inter-service communication.
 - **Health Monitoring**: Includes a health check endpoint for Metabase to ensure operational reliability.
 
+![Arch](./public/arch.svg)
+
+### Label
+
+| Element         | Description                          |
+|----------------|--------------------------------------|
+| `metapocket_ui`| UI container (Metabase)              |
+| `metapocket_01/02` | Customer-specific server containers |
+| `metapocket_data` | Shared volume mounted at `/data`     |
+| `metabase_net`  | Network used for inter-container communication |
+
 ## Getting Started
 
 ### Step 1: Deploy the Services
