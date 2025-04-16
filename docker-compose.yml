@@ -8,7 +8,7 @@ services:
     ports:
       - 3080:3000
     volumes:
-      - metapocket_data:/pb_data
+      - metapocket_data:/data
     environment:
       - JAVA_OPTS=-Xms512m -Xmx1512m
     restart: unless-stopped
@@ -24,17 +24,17 @@ services:
       timeout: 5s
       retries: 5
 
-  metabase_server_<client>:
+  metabase_server_<customer>:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: metapocket_server_<client>
+    container_name: metapocket_server_<customer>
     ports:
       - 3081:8090
     environment:
-      - DATA_DIR=/pb_data_<client>
+      - DATA_DIR=/data/<customer>
     volumes:
-      - metapocket_data:${DATA_DIR}
+      - metapocket_data:/data
     restart: unless-stopped
     
     #network
@@ -47,4 +47,4 @@ volumes:
 
 networks:
   metabase_net:
-    external: true
+    driver: bridge
