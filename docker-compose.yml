@@ -1,26 +1,8 @@
 version: '3'
 
 services:
-  pocketbase:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: metapocket_server
-    ports:
-      - 3081:8090
-    environment:
-      - DATA_DIR=/pb_data
-    volumes:
-      - metapocket_data:/pb_data
-    restart: unless-stopped
-    #network
-    networks:
-      metabase_net:
-        ipv4_address: 192.168.2.150
-    dns:
-      - 192.168.2.2
 
-  metabase:
+  metabase_ui:
     image: metabase/metabase:v0.52.4
     container_name: metapocket_ui
     ports:
@@ -30,12 +12,10 @@ services:
     environment:
       - JAVA_OPTS=-Xms512m -Xmx1512m
     restart: unless-stopped
+    
     #network
     networks:
-      metabase_net:
-        ipv4_address: 192.168.2.151
-    dns:
-      - 192.168.2.2
+      - metabase_net
 
     # helth
     healthcheck:
@@ -43,6 +23,23 @@ services:
       interval: 15s
       timeout: 5s
       retries: 5
+
+  metabase_server_<client>:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: metapocket_server_<client>
+    ports:
+      - 3081:8090
+    environment:
+      - DATA_DIR=/pb_data_<client>
+    volumes:
+      - metapocket_data:${DATA_DIR}
+    restart: unless-stopped
+    
+    #network
+    networks:
+      - metabase_net
 
 volumes:
   metapocket_data:
