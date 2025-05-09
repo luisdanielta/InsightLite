@@ -1,6 +1,6 @@
-# Metapocket: Bridging Pocketbase and Metabase
+# InsightLite: Connect and Analyze
 
-**Metapocket** is a seamless integration of the lightweight power of Pocketbase, a SQLite-backed server, with Metabase, a robust data visualization and analytics tool. This project enables effortless exploration and analysis of your data in a sleek, unified setup.
+**InsightLite** is a lightweight, Docker-based framework designed to help developers and data engineers connect multiple existing SQLite databases—such as those from Pi-hole, Home Assistant, or any embedded app—to Metabase, a powerful data visualization and analytics tool.
 
 ## Key Features
 
